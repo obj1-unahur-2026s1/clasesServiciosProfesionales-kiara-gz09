@@ -1,17 +1,15 @@
-
 class ProfesionalVinculado {
   const property universidad
 
   method puedeTrabajarEn() = [universidad.provincia()]
-  method honorarios() = universidad.honorarios()
-
+  method honorarios() = universidad.honorariosPorHr()
 }
+
 class ProfesionalAsociado {
   const property universidad
 
   method puedeTrabajarEn() = ["Entre Ríos", "Santa Fe", "Corrientes"]
-  method honorarios() = universidad.honorarios()
-
+  method honorarios() = universidad.honorariosPorHr()
 }
 
 class ProfesionalLibre {

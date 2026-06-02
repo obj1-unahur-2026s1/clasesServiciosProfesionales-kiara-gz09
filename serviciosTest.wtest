@@ -1,0 +1,40 @@
+import servicios.*
+
+describe "Test" {
+    const sanMartin = new Universidad(provincia = "Buenos Aires", honorariosPorHr = 3500)
+    const rosario = new Universidad(provincia = "Buenos Aires", honorariosPorHr = 3500)
+    const corrientes = new Universidad(provincia = "Buenos Aires", honorariosPorHr = 3500)
+    const unahur = new Universidad(provincia = "Buenos Aires", honorariosPorHr = 3500)
+
+    const juana = new ProfesionalVinculado(universidad=rosario)
+    const melina = new ProfesionalAsociado(universidad=corrientes)
+    const rocio = new ProfesionalLibre(universidad=unahur, honorarios=5000,puedeTrabajarEn=["Santa Fe", "Buenos Aires", "Córdoba"])
+    const luciana = new ProfesionalLibre(universidad=rosario, honorarios=3200,puedeTrabajarEn=["Santa Fe", "Entre Ríos"])
+    
+    const empresa = new EmpresaServicios(honorariosRef = 3500)
+
+    method initialize(){
+        empresa.contratarA(juana)
+        empresa.contratarA(melina)
+        empresa.contratarA(rocio)
+        empresa.contratarA(luciana)
+  }
+    test "cuenta profesionales que estudiaron en Rosario" {
+        assert.equals(2, empresa.cantProfesionalesQueEstudiaronEn(rosario))
+    }
+
+    test "obtiene las universidades formadoras sin repetir" {
+        assert.equals(
+            #{rosario, corrientes, unahur},
+            empresa.conjUniversidadesFormadoras()
+        )
+    }
+
+    test "el profesional mas barato es Luciana" {
+        assert.equals(luciana, empresa.profesionalMasBarato())
+    }
+
+    test "es de gente acotada" {
+        assert.that(empresa.esDeGenteAcotada())
+    }
+}
